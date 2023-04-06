@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
 int add(int a, int b) {
@@ -25,30 +26,54 @@ float power(float a, int m) {
     return pow(a, m);
 }
 
+float average(double numbers[], int count) {
+    double sum = 0.0;
+    for (int i = 0; i < count; i++) {
+        sum += numbers[i];
+    }
+    return sum / count;
+}
+
 int main() {
-    int choice, a, b, m;
+    int choice, a, b, m, count = 0;
+    double numbers[100], input;
     float result;
 
     printf("Enter your choice:\n");
-    printf("1. Add\n2. Subtract\n3. Multiply\n4. Divide\n5. Square root\n6. Power\n");
-    scanf("%d", &choice);
+    printf("1. Add\n2. Subtract\n3. Multiply\n4. Divide\n5. Square root\n6. Power\na. Calculate Average\n");
+    scanf("%c", &choice);
 
-    if (choice == 1) {
+    if (choice == 'a') {
+        printf("Enter the numbers to be averaged (press any other key to stop):\n");
+        while (1) {
+            if (scanf("%lf", &input) != 1) {
+                break;
+            }
+            numbers[count] = input;
+            count++;
+        }
+        if (count == 0) {
+            printf("Error: No numbers entered");
+        } else {
+            result = average(numbers, count);
+            printf("Result: %f", result);
+        }
+    } else if (choice == '1') {
         printf("Enter two numbers: ");
         scanf("%d %d", &a, &b);
         result = add(a, b);
         printf("Result: %f", result);
-    } else if (choice == 2) {
+    } else if (choice == '2') {
         printf("Enter two numbers: ");
         scanf("%d %d", &a, &b);
         result = subtract(a, b);
         printf("Result: %f", result);
-    } else if (choice == 3) {
+    } else if (choice == '3') {
         printf("Enter two numbers: ");
         scanf("%d %d", &a, &b);
         result = multiply(a, b);
         printf("Result: %f", result);
-    } else if (choice == 4) {
+    } else if (choice == '4') {
         printf("Enter two numbers: ");
         scanf("%d %d", &a, &b);
         if (b == 0) {
@@ -57,7 +82,7 @@ int main() {
             result = divide(a, b);
             printf("Result: %f", result);
         }
-    } else if (choice == 5) {
+    } else if (choice == '5') {
         printf("Enter a number: ");
         scanf("%d", &a);
         if (a < 0) {
@@ -66,7 +91,7 @@ int main() {
             result = square_root(a);
             printf("Result: %f", result);
         }
-    } else if (choice == 6) {
+    } else if (choice == '6') {
         printf("Enter a number and power: ");
         scanf("%d %d", &a, &m);
         result = power(a, m);
@@ -77,3 +102,4 @@ int main() {
 
     return 0;
 }
+
